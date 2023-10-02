@@ -154,8 +154,14 @@ Who were the 5 biggest recipients of campaign spending on "LEGAL CONSULTING"..?
 
 ```{r}
 
+payments %>% 
+  filter(disbursement_description == "LEGAL CONSULTING") %>% 
+  group_by(recipient_name) %>% 
+  summarise(tot_spent = sum(disbursement_amount)) %>% 
+  arrange(desc(tot_spent)) %>% 
+  head(5)
 
-
+# Filtering for the LEGAL CONSULTING category under the disbursement description field, I used the same grouping by recipient name I did a few questions ago and the same summarizing and arranging lines that I have used throughout the problem set and then just selected the top five using the head command. Using these commands, I was able to find that the five biggest recipients of campaign spending under LEGAL CONSULTING were JONES DAY, LAROCCA HORNIK ROSEN GREENBERG & BLAHA LLP, KASOWITZ, BENSON, TORRESS & FRIEDMAN, THE LAW OFFICES OF ALAN S. FUTERFAS, and MCDERMOTT WILL & EMERY.  
 
 
 
@@ -167,9 +173,21 @@ Who are the top 5 individuals (vs. organization) were paid by the campaign commi
 
 ```{r}
 
+payments %>% 
+  filter(entity_type == "IND") %>% 
+  group_by(recipient_name) %>% 
+  summarise(tot_spent = sum(disbursement_amount)) %>% 
+  arrange(desc(tot_spent)) %>% 
+  head(5)
 
+payments %>% 
+  filter(entity_type == "ORG") %>% 
+  group_by(recipient_name) %>% 
+  summarise(tot_spent = sum(disbursement_amount)) %>% 
+  arrange(desc(tot_spent)) %>% 
+  head(5)
 
-
+# To find the top five individual recipients and the top five organizations, I used essentially the same code for both, using the same filtering, grouping, summarizing, and arrangement lines I used earlier. As a result, I was able to find that the top five individual recipients were Michael Glassner, Sean Dollman, Darren Centinello, and Christopher Carr and John Pence, and the top five organizations were AMERICAN MADE MEDIA CONSULTANTS, LLC, PARSCALE STRATEGY, LLC, JONES DAY, AMERICAN EXPRESS, and GILES-PARSCALE. 
 
 
 
