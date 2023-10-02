@@ -1,6 +1,6 @@
 ---
 title: "SMPA - Grouping Assignment"
-author: "YourNameHere"
+author: "Avril Silva"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 format:
   html:
@@ -61,11 +61,11 @@ Take a moment to look at the various categories included for each disbursement.
 
 Without doing any analysis yet, what are three questions you might try to answer using this dataset? Write your narrative answers in the spaces below.
 
-1.  
+1.  What organization had the most disbursements paid to in 2017? Top three?  
 
-2.  
+2.  How many different payees are listed in 2018?
 
-3.  
+3.  What are the top three individuals that were paid disbursements in 2018?
 
 ## Coding Assignment Questions
 
@@ -81,9 +81,11 @@ How much was spent in the 2017 vs. 2018 reporting year?
 
 ```{r}
 
+payments %>% 
+  group_by(report_year) %>% 
+  summarise(tot_spent = sum(disbursement_amount))
 
-
-
+# To differentiate between how much was spent between 2017 and 2018, I made sure to group the values by the reported year and then make a new field for the total spent in each year by using the sum function to add up all the disbursements. 
 
 
 
