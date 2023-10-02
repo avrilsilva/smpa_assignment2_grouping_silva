@@ -85,7 +85,7 @@ payments %>%
   group_by(report_year) %>% 
   summarise(tot_spent = sum(disbursement_amount))
 
-# To differentiate between how much was spent between 2017 and 2018, I made sure to group the values by the reported year and then make a new field for the total spent in each year by using the sum function to add up all the disbursements. 
+# To differentiate between how much was spent between 2017 and 2018, I made sure to group the values by the reported year and then make a new field for the total spent in each year by using the sum function to add up all the disbursements. Using this, you can find that the spending was more in 2018. 
 
 
 
@@ -95,9 +95,12 @@ Tally the total overall disbursement amounts for each month (distinguishing betw
 
 ```{r}
 
+payments %>% 
+  group_by(disbursement_month, disbursement_year) %>% 
+  summarise(tot_spent = sum(disbursement_amount)) %>% 
+  arrange(desc(tot_spent))
 
-
-
+# In order to organize it by each month of each year in a way that shows me the values from largest to smallest, I broke it up bit by bit, so I started with the grouping command to make sure I had the year and month grouped up and then I did the same summarise command as the previous question and then sorted it using the arrange command to do it in descending order. As a result, you can see that the most spending occurred in October of 2018.                                                             
 
 
 ```
@@ -106,9 +109,12 @@ Which recipient (recipient_name) was paid the most in the 2020 election cycle?
 
 ```{r}
 
+payments %>% 
+  group_by(recipient_name) %>% 
+  summarise(tot_spent = sum(disbursement_amount)) %>% 
+  arrange(desc(tot_spent))
 
-
-
+# Using the same grouping, summarise, and arrange tools as the previous questions, I used the same tot_spent sum field to add up all the disbursements of each recipient and do the same sorting to show the results in a descending order. This one was a bit easier than the last one because of the more practice I was able to have. As you can see, the recipient who was paid the most in the 2020 election cycle, was "AMERICAN MADE MEDIA CONSULTANTS, LLC"
 
 
 
@@ -118,9 +124,13 @@ Look at what this recipient was paid for. What service or good (see the "disburs
 
 ```{r}
 
+payments %>% 
+  filter(recipient_name == "AMERICAN MADE MEDIA CONSULTANTS, LLC") %>% 
+  group_by(disbursement_description) %>% 
+  summarise(tot_spent = sum(disbursement_amount)) %>% 
+  arrange(desc(tot_spent))
 
-
-
+# Now that I have gotten a little bit of a better hang of the commands, knowing to filter for the specific organization was all I needed to know and then the rest came into place after the disbursement description field was recognized. This code gets easier knowing I can build off of what I did before. AMERICAN MADE MEDIA CONSULTANTS, LLC, as seen in the data, was paid the most for what the data recognizes as PLACED MEDIA. 
 
 
 ```
@@ -129,9 +139,13 @@ What's the most common category overall (see "disbursement_description") the cam
 
 ```{r}
 
+payments %>% 
+  group_by(disbursement_description) %>% 
+  summarise(tot_spent = sum(disbursement_amount)) %>% 
+  arrange(desc(tot_spent))
 
 
-
+# This question was even easier than the last one because I didn't even need the filter and could just group by the disbursement description to find that the most common category overall the campaign spent money on was what they claim to be "DIGITAL CONSULTING/ONLINE ADVERTISING". 
 
 
 ```
