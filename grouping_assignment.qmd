@@ -198,9 +198,13 @@ For the indvidual who was paid the most, which payment category (disbursement_de
 
 ```{r}
 
+payments %>% 
+  filter(recipient_name == "GLASSNER, MICHAEL") %>% 
+  group_by(disbursement_description) %>% 
+  summarise(tot_spent = sum(disbursement_amount)) %>% 
+  arrange(desc(tot_spent))
 
-
-
+# Considering we only had to filter for the one individual, I was able to use essentially the lines from before, this time just grouping the disbursement descriptions and finding their sums to find that the top individual, Michael Glassner, was paid 499000.00 for his payroll, which was his top payment category. 
 
 
 
